@@ -1,34 +1,56 @@
-"use client";
-import TaskItem from "@/components/task/TaskItem";
 import { ITasks } from "@/types";
-import { useEffect, useState } from "react";
-const Page = () => {
-  const [tasks, setTasks] = useState<ITasks[]>([]);
-  const getTasks = () => {
-    fetch("https://dummyjson.com/todos", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        const tasks: ITasks[] = res.todos.map((task: ITasks) => ({
-          id: task.id,
-          todo: task.todo,
-          completed: task.completed,
-        }));
-        setTasks(tasks);
-      });
-  };
+import Image from "next/image";
+import Link from "next/link";
 
-  useEffect(() => {
-    getTasks();
-  }, []);
+interface IProps {
+  params: { task: string }; 
+}
+
+const TaskDetails = async ({ params }: IProps) => {
+  const data = await fetch(`https://dummyjson.com/todos/${params.task}`, {
+    method: "GET",
+    cache: "no-store",
+  });
+
+  if (!data.ok) {
+    return (
+      <div className="text-center text-red-500 text-lg font-semibold">
+        Task not found
+        <Link 
+          href="/" 
+          className="mt-4 block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition"
+        >
+          Back to Tasks
+        </Link>
+      </div>
+    );
+  }
+
+  const task: ITasks = await data.json(); 
+
   return (
-    <div className="space-y-4 max-w-2xl mx-auto m-7 p-6 bg-gray-900 text-white rounded-lg shadow-lg">
-      {tasks.map((item) => (
-        <TaskItem key={item.id} task={item} />
-      ))}
+    <div className="max-w-2xl mx-auto m-7 p-6 bg-gray-900 text-white rounded-lg shadow-lg">
+        <Image  src= {task.completed ? "https://banner2.cleanpng.com/20180315/djw/av0u3beuj.webp" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpsNw7m0m0T-Q2zkI2X3zyK6gt5QUkv8BJFg&s"} width={50} height={50} alt="Completed Image"/>
+
+      <h1 className="text-3xl font-bold mb-4 text-blue-400">Task Details</h1>
+      <p className="text-lg"><strong>ID:</strong> {task.id}</p>
+      <h2 className="text-xl font-semibold"><strong>Title:</strong> {task.todo}</h2>
+      <h3 
+        className={`mt-2 text-lg font-medium px-4 py-2 rounded-lg inline-block 
+        ${task.completed ? "bg-green-500 text-white" : "bg-yellow-500 text-black"}`}
+      >
+        {task.completed ? "✅ Completed" : "⏳ Pending"}
+      </h3>
+      
+      {/* Back Button */}
+      <Link 
+        href="/" 
+        className="mt-6 inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition"
+      >
+        Back to Tasks
+      </Link>
     </div>
   );
 };
 
-export default Page;
+export default TaskDetails;
