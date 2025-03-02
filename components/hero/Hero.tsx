@@ -1,26 +1,17 @@
 import { ITasks } from "@/types";
 import TaskItem from "../task/TaskItem";
+import { fetchTasks } from "@/services/task.service";
 
 const Hero = async () => {
-  const data = await fetch("https://dummyjson.com/todos", {
-    method: "GET",
-    cache: "no-store", 
-  });
+  const tasks : ITasks[] = await fetchTasks();
 
-  if (!data.ok) {
-    return (
-      <div className="text-center text-red-500 text-lg font-semibold">
-        Failed to load tasks
-      </div>
-    );
-  }
-
-  const res = await data.json();
-  const tasks: ITasks[] = res.todos.map((task: ITasks) => ({
-    id: task.id,
-    todo: task.todo,
-    completed: task.completed,
-  }));
+  // if (!tasks.ok) {
+  //   return (
+  //     <div className="text-center text-red-500 text-lg font-semibold">
+  //       Failed to load tasks
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="space-y-4 max-w-2xl mx-auto m-7 p-6 bg-gray-900 text-white rounded-lg shadow-lg">

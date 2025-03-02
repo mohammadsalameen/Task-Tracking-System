@@ -1,3 +1,4 @@
+import { fetchTasks } from "@/services/task.service";
 import { ITasks } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,12 +8,23 @@ interface IProps {
 }
 
 const TaskDetails = async ({ params }: IProps) => {
-  const data = await fetch(`https://dummyjson.com/todos/${params.task}`, {
-    method: "GET",
-    cache: "no-store",
-  });
-  const task: ITasks = await data.json();
+    const tasks : ITasks[] = await fetchTasks(); 
+    const task  = tasks.find((t) => t.id === Number(params.task));
 
+    if (!task) {
+        return (
+          <div className="text-center text-red-500 text-lg font-semibold">
+            Task not found
+            <Link
+              href="/"
+              className="mt-4 block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition"
+            >
+              Back to Tasks
+            </Link>
+          </div>
+        );
+    }
+    
   return (
     <div className="max-w-2xl mx-auto m-7 p-6 bg-gray-900 text-white rounded-lg shadow-lg">
 
