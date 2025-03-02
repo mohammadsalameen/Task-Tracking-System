@@ -6,10 +6,10 @@ export const fetchTasks = async() =>{
         cache: "no-store", 
       });
       const res = await data.json();
-      const tasks: ITasks[] = res.todos.map((task: ITasks) => ({
-        id: task.id,
-        todo: task.todo,
-        completed: task.completed,
-      }));
-      return tasks;
+          const tasks: ITasks[] = res.todos.map((task: ITasks) => ({
+            id: task.id,
+            todo: task.todo,
+            completed: task.completed,
+          }));
+          return tasks;
 }

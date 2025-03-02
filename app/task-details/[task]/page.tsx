@@ -1,7 +1,7 @@
 import TaskDetailsCard from "@/components/task-card/TaskDetailsCard";
 import { fetchTasks } from "@/services/task.service";
 import { ITasks } from "@/types";
-import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 interface IProps {
@@ -13,17 +13,7 @@ const TaskDetails = async ({ params }: IProps) => {
   const task = tasks.find((t) => t.id === Number(params.task));
 
   if (!task) {
-    return (
-      <div className="text-center text-red-500 text-lg font-semibold">
-        Task not found
-        <Link
-          href="/"
-          className="mt-4 block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition"
-        >
-          Back to Tasks
-        </Link>
-      </div>
-    );
+    notFound();
   }
 
   return (
