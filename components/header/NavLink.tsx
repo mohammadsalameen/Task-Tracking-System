@@ -10,7 +10,7 @@ const NavLink = (props : IProps) => {
     const path = usePathname();
   return (
     <div>
-      <Link href = {props.href} className= {path.startsWith(props.href)? "hover:text-gray-300  hover:border-b-2 hover:border-white " : undefined}>{props.children}</Link>
+      <Link href = {props.href} className= {path === props.href ? "border-b-4 border-[#60A5FA] " : undefined}>{props.children}</Link>
     </div>
   )
 }

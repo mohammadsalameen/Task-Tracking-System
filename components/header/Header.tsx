@@ -15,7 +15,7 @@ function Header() {
             </div>
           </Link>
           <div className="hidden md:flex space-x-9">
-            <NavLink href="/">Home</NavLink>
+            <NavLink  href="/">Home</NavLink>
             <NavLink href="/tasks">All Tasks</NavLink>
             <NavLink href="/add-task">Add Task</NavLink>
             <NavLink href="/about">About</NavLink>

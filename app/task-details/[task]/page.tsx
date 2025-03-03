@@ -17,6 +17,7 @@ const TaskDetails = async ({ params }: IProps) => {
   }
 
   return (
+    <div className="min-h-96 w-full">
     <div className="max-w-2xl mx-auto m-7 p-6 bg-gray-900 text-white rounded-lg shadow-lg">
       <h1 className="text-3xl font-bold mb-4 text-blue-400">Task Details</h1>
       <Suspense
@@ -33,6 +34,7 @@ const TaskDetails = async ({ params }: IProps) => {
       >
         <TaskDetailsCard task={task} />
       </Suspense>
+    </div>
     </div>
   );
 };

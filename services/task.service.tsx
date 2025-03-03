@@ -11,5 +11,6 @@ export const fetchTasks = async() =>{
             todo: task.todo,
             completed: task.completed,
           }));
+        //   throw new Error("error");
           return tasks;
 }
