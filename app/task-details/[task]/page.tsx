@@ -7,7 +7,7 @@ import { ITasks } from "@/types";
 import { Suspense, useEffect, useState } from "react";
 
 interface IProps {
-  params: { task: string };
+  params: Promise<{ task: string }>;
 }
 
 const TaskDetails = ({ params }: IProps) => {
@@ -15,16 +15,17 @@ const TaskDetails = ({ params }: IProps) => {
     const [loading, setLoading] = useState(true);
     const [copied, setCopied] = useState(false);
     useEffect(() =>{
-        const loadTask = async () =>{
-            const tasks: ITasks[] = await fetchTasks();
-            const foundTask = tasks.find((t) => t.id === Number(params.task));
+      const loadTask = async () =>{
+        const tasks: ITasks[] = await fetchTasks();
+        const Params = await params;
+            const foundTask = tasks.find((t) => t.id === Number(Params.task));
             if(foundTask){
                 setTask(foundTask);
             }
             setLoading(false);
         }
         loadTask();
-    }, [params.task]);
+    }, [params]);
     if (loading) {
         return (
           <div className="flex items-center justify-center min-h-screen text-white">
