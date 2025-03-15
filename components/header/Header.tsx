@@ -18,6 +18,7 @@ function Header() {
             <NavLink  href="/">Home</NavLink>
             <NavLink href="/tasks">All Tasks</NavLink>
             <NavLink href="/add-task">Add Task</NavLink>
+            <NavLink href="/login">Admin</NavLink>
             <NavLink href="/about">About</NavLink>
           </div>
         </div>

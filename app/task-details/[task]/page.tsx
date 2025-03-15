@@ -57,13 +57,13 @@ const TaskDetails = ({ params }: IProps) => {
         <h1 className="text-3xl font-bold mb-4 text-blue-400">Task Details</h1>
         <Suspense fallback={<Spinner/> }>
           <TaskDetailsCard task={task} />
-        </Suspense>
         <button
           onClick={handleCopy}
           className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition"
         >
           {copied ? "✅ Copied!" : "📋 Copy Title"}
         </button>
+        </Suspense>
       </div>
     </div>
   );
